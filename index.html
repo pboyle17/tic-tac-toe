@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>tic tac toe</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>tic tac toe</h1>
+    <div class="container">
+      <div class="row">
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+      </div>
+      <div class="row">
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+      </div>
+      <div class="row">
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      window.onload = function(){
+        console.log('script is loaded!');
+        attachSquareClickEventListeners();
+      }
+
+      var redTurn= true;
+
+      var allTheSquares = document.getElementsByClassName('square');
+
+      var attachSquareClickEventListeners = function (){
+        for(var x = 0; x < allTheSquares.length ; x++){
+          allTheSquares[x].addEventListener('click',function(){
+            if(redTurn){
+              this.style.backgroundColor = 'red';
+              redTurn = !redTurn;
+            } else {
+              this.style.backgroundColor = 'blue';
+              redTurn = !redTurn;
+            }
+          });
+        }
+        console.log('the square click events have been added');
+      };
+    </script>
+  </body>
+</html>

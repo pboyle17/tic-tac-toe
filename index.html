@@ -9,30 +9,43 @@
     <h1>tic tac toe</h1>
     <div class="container">
       <div class="row">
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
+        <div class="square" id=1></div>
+        <div class="square" id=2></div>
+        <div class="square" id=3></div>
       </div>
       <div class="row">
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
+        <div class="square" id=4></div>
+        <div class="square" id=5></div>
+        <div class="square" id=6></div>
       </div>
       <div class="row">
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
+        <div class="square" id=7></div>
+        <div class="square" id=8></div>
+        <div class="square" id=9></div>
       </div>
     </div>
+
     <script type="text/javascript">
       window.onload = function(){
         console.log('script is loaded!');
         attachSquareClickEventListeners();
       }
 
+      var lastMove = {}
+      lastMove.turn = 0;
       var redTurn= true;
 
       var allTheSquares = document.getElementsByClassName('square');
+      var squareOneSelector = document.getElementById(1);
+      var squareTwoSelector = document.getElementById(2);
+      var squareThreeSelector = document.getElementById(3);
+      var squareFourSelector = document.getElementById(4);
+      var squareFiveSelector = document.getElementById(5);
+      var squareSixSelector = document.getElementById(6);
+      var squareSevenSelector = document.getElementById(7);
+      var squareEightSelector = document.getElementById(8);
+      var squareNineSelector = document.getElementById(9);
+
 
       var attachSquareClickEventListeners = function (){
         for(var x = 0; x < allTheSquares.length ; x++){
@@ -40,14 +53,78 @@
             if(redTurn){
               this.style.backgroundColor = 'red';
               redTurn = !redTurn;
+              lastMove.id = this.id;
+              lastMove.color = this.style.backgroundColor;
+              lastMove.turn++;
+              if(lastMove.turn>4){
+                checkForWinners();
+              }
             } else {
               this.style.backgroundColor = 'blue';
               redTurn = !redTurn;
+              lastMove.id = this.id
+              lastMove.color = this.style.backgroundColor;
+              lastMove.turn++;
+              if(lastMove.turn>4){
+                checkForWinners();
+              }
             }
           });
         }
         console.log('the square click events have been added');
       };
+
+      var checkForWinners = function(){
+        if(checkForWinnersRows() || checkForWinnersColumns() || checkForWinnersDiagonals()){
+          console.log('winner!');
+          alert('winner!');
+          return true;
+        } else {
+          return false;
+        }
+      }//end of checkForWinners function
+
+      var checkForWinnersRows = function(){
+        if(compareColors(squareOneSelector,squareTwoSelector,squareThreeSelector)&&squareOneSelector.style.backgroundColor!=''){
+          return true;
+        }
+        if(compareColors(squareFourSelector,squareFiveSelector,squareSixSelector)&&squareFourSelector.style.backgroundColor!=''){
+          return true;
+        }
+        if(compareColors(squareSevenSelector,squareEightSelector,squareNineSelector)&&squareSevenSelector.style.backgroundColor!=''){
+          return true;
+        }
+      }
+
+      var checkForWinnersColumns = function(){
+        if(compareColors(squareOneSelector,squareFourSelector,squareSevenSelector)&&squareOneSelector.style.backgroundColor!=''){
+          return true;
+        }
+        if(compareColors(squareTwoSelector,squareFiveSelector,squareEightSelector)&&squareFourSelector.style.backgroundColor!=''){
+          return true;
+        }
+        if(compareColors(squareThreeSelector,squareSixSelector,squareNineSelector)&&squareSevenSelector.style.backgroundColor!=''){
+          return true;
+        }
+      }
+
+      var checkForWinnersDiagonals = function(){
+        if(compareColors(squareOneSelector,squareFiveSelector,squareNineSelector)&&squareOneSelector.style.backgroundColor!=''){
+          return true;
+        }
+        if(compareColors(squareThreeSelector,squareFiveSelector,squareSevenSelector)&&squareThreeSelector.style.backgroundColor!=''){
+          return true;
+        }
+      }
+
+
+      var compareColors = function(squareOne,squareTwo,squareThree){
+        if(squareOne.style.backgroundColor === squareTwo.style.backgroundColor && squareOne.style.backgroundColor === squareThree.style.backgroundColor){
+          return true;
+        } else {
+          return false;
+        }
+      }
     </script>
   </body>
 </html>
